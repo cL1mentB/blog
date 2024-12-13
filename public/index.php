@@ -6,11 +6,11 @@ $router = new AltoRouter();
 
 // Définir les routes
 $router->map('GET', '/', function() {
-    require __DIR__ . 'public/views/home.php';
+    require __DIR__ . '/views/home.php';
 }, 'home');
 
 $router->map('GET', '/about', function() {
-    require __DIR__ . 'public/views/about.php';
+    require __DIR__ . '/views/about.php';
 }, 'about');
 
 $router->map('GET', '/user/[i:id]', function($id) {
