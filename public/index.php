@@ -3,23 +3,30 @@
 require '../vendor/autoload.php'; // Charger AltoRouter via Composer
 
 $router = new AltoRouter();
+define('VIEW_PATH', dirname(__DIR__) . '/views');
 
 // Définir les routes
-$router->map('GET', '/', function() {
-    require __DIR__ . '/views/home.php';
-}, 'home');
+$router->map('GET', '/blog', function() {
+    require VIEW_PATH . '/layout/header.php';
+    require VIEW_PATH . '/post/index.php';
+    require VIEW_PATH . '/layout/footer.php';
+}, 'blog');
 
-$router->map('GET', '/about', function() {
-    require __DIR__ . '/views/about.php';
-}, 'about');
+$router->map('GET', '/adminer', function() {
+    require VIEW_PATH . '/layout/header.php';
+    require __DIR__ . '/adminer.php';
+    require VIEW_PATH . '/layout/footer.php';
+}, 'adminer');
 
-$router->map('GET', '/user/[i:id]', function($id) {
-    require __DIR__ . '/views/user.php';
-}, 'user-profile');
+$router->map('GET', '/blog/category', function() {
+    require VIEW_PATH . '/layout/header.php';
+    require VIEW_PATH . '/category/show.php';
+    require VIEW_PATH . '/layout/footer.php';
+}, 'category');
+
 
 // Correspondre la requête entrante avec une route définie
 $match = $router->match();
-
 if ($match) {
     // Appeler la cible avec les paramètres
     call_user_func_array($match['target'], $match['params']);
